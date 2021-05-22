@@ -1,0 +1,21 @@
+{
+  "links": [
+    {
+      "alias": "Home",
+      "route": "/"
+    },
+    {
+      "alias": "Note",
+      "route": "/note"
+    },
+    {
+      "alias": "Create",
+      "route": "/create"
+    },
+    {
+      "alias": "About",
+      "route": "/about"
+    }
+  ],
+  "title": "Service for encrypted share messages"
+}
