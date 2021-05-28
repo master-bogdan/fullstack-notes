@@ -7,7 +7,9 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "tsc",
     "start": "node .",
-    "dev": "nodemon index.ts"
+    "server": "nodemon index.ts",
+    "postinstall": "tsc --skipLibCheck",
+    "dev": "concurrently -n 'server,client' -c 'yellow,blue' \"yarn run server\" \"cd ../ && cd ./client && yarn start\""
   },
   "keywords": [
     "nodejs",
@@ -23,6 +25,7 @@
     "@types/mongoose": "^5.10.5",
     "@typescript-eslint/eslint-plugin": "^4.24.0",
     "@typescript-eslint/parser": "^4.24.0",
+    "concurrently": "^6.2.0",
     "eslint": "^7.26.0",
     "eslint-config-airbnb-base": "^14.2.1",
     "eslint-config-airbnb-typescript": "^12.3.1",
