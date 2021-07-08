@@ -4,7 +4,9 @@ import { Switch, Route } from 'react-router-dom';
 import { Container } from '@material-ui/core';
 import NavBar from 'components/NavBar';
 import Footer from 'components/Footer';
+// Pages
 import Home from 'pages/Home';
+import Create from 'pages/Create';
 
 const Routes: React.FC = () => {
   console.log('');
@@ -12,9 +14,10 @@ const Routes: React.FC = () => {
   return (
     <>
       <NavBar />
-      <Container>
+      <Container maxWidth="md">
         <Switch>
           <Route exact path="/" component={Home} />
+          <Route path="/create" component={Create} />
         </Switch>
       </Container>
       <Footer />

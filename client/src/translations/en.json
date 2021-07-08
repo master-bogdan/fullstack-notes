@@ -17,5 +17,7 @@
       "route": "/about"
     }
   ],
-  "title": "Service for sharing encrypted messages"
+  "title": "Share ENC - service for sharing encrypted messages",
+  "create_btn": "Create note",
+  "read_btn": "Read note"
 }
