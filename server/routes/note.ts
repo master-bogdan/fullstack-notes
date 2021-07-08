@@ -34,7 +34,7 @@ note.post('/note', async (req: Request, res: Response) => {
         return res.status(500).json({ message: 'note not added, please try again' })
       }
 
-      return res.status(201).json({ noteUrl: `${process.env.APP_URL}/${note._id}` })
+      return res.status(201).json(`${process.env.APP_URL}/${note._id}`)
     });
   } catch (error) {
     console.log(error);
