@@ -4,17 +4,23 @@ import { CopyToClipboard } from 'react-copy-to-clipboard';
 // Styles
 import {
   Wrapper,
+  StyledSuccessAlert,
+  NoteUrl,
+  CopiedMessage,
 } from './styles';
 // Components
-import { TextField, Button } from '@material-ui/core';
+import { TextField, Button, Box } from '@material-ui/core';
 import Alert from '@material-ui/lab/Alert';
 // Utils
 import { API } from 'utils/api';
+// Icons
+import FileCopyIcon from '@material-ui/icons/FileCopy';
 
 const Create: React.FC = () => {
   const { t } = useTranslation();
   const [note, setNote] = useState<string>('');
   const [noteUrl, setNoteUrl] = useState<string | undefined>(undefined);
+  const [copied, setCopied] = useState<boolean>(false);
 
   const changeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     setNote(event.target.value);
@@ -23,62 +29,74 @@ const Create: React.FC = () => {
   const createNote = async () => {
     try {
       const { data } = await API.post('/note', { noteText: note });
-      console.log(data);
       setNoteUrl(data);
     } catch (error) {
       console.log(error);
     }
   };
 
+  if (typeof noteUrl !== 'undefined') {
+    return (
+      <Wrapper>
+        <StyledSuccessAlert
+          variant="filled"
+          severity="info"
+        >
+          <NoteUrl>
+            {noteUrl}
+          </NoteUrl>
+          <CopyToClipboard
+            text={noteUrl}
+            onCopy={() => setCopied(true)}
+          >
+            {copied ? (
+              <CopiedMessage>
+                Url Copied
+              </CopiedMessage>
+            ) : (
+              <Button
+                color="secondary"
+                variant="contained"
+              >
+                Copy link
+                <FileCopyIcon
+                  fontSize="small"
+                  style={{ marginLeft: '5px' }}
+                />
+              </Button>
+            )}
+          </CopyToClipboard>
+        </StyledSuccessAlert>
+        <Alert
+          style={{ width: '100%' }}
+          severity="warning"
+          variant="filled"
+        >
+          Copy URL and send it to friend. Attention! You can view note only one time!
+        </Alert>
+      </Wrapper>
+    );
+  }
+
   return (
     <Wrapper>
-      {typeof noteUrl !== 'undefined' ? (
-        <>
-          <Alert
-            style={{ width: '100%' }}
-            severity="success"
-          >
-            {noteUrl}
-            <CopyToClipboard
-              text={noteUrl}
-              // onCopy={() => this.setState({copied: true})}
-            >
-              <Button
-                size="small"
-                color="secondary"
-              >
-                Copy to clipboard
-              </Button>
-            </CopyToClipboard>
-          </Alert>
-          <Alert
-            style={{ width: '100%' }}
-            severity="warning"
-          >
-            Copy URL and send it to friend. Attention! You can view note only one time!
-          </Alert>
-        </>
-      ) : (
-        <>
-          <TextField
-            placeholder="Create note"
-            fullWidth
-            multiline
-            variant="outlined"
-            rows={4}
-            style={{ marginBottom: '40px' }}
-            onChange={changeHandler}
-          />
-          <Button
-            variant="outlined"
-            color="primary"
-            size="large"
-            onClick={createNote}
-          >
-            {t('create_btn')}
-          </Button>
-        </>
-      )}
+      <TextField
+        placeholder="Create note"
+        fullWidth
+        multiline
+        variant="outlined"
+        rows={4}
+        onChange={changeHandler}
+      />
+      <Box m={4} />
+      <Button
+        variant="outlined"
+        color="primary"
+        size="large"
+        onClick={createNote}
+      >
+        {t('create_btn')}
+      </Button>
     </Wrapper>
   );
 };

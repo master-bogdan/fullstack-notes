@@ -9,21 +9,3 @@ export const BtnBlock = styled.div`
   justify-content: space-around;
   margin-bottom: 5%;
 `;
-
-export const InstructionsBlock = styled.ul`
-  padding-left: 10px;
-  margin-bottom: 40px;
-
-  li {
-    display: flex;
-    align-items: center;
-    line-height: 30px;
-    a {
-      color: blue;
-    }
-  }
-
-  svg {
-    margin-right: 10px;
-  }
-`;

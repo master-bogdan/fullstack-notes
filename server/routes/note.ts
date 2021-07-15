@@ -4,10 +4,10 @@ import { encrypt, decrypt } from '../utils/cryptography';
 
 const note = Router();
 
-note.get('/note', async (req: Request, res: Response) => {
-  const { noteId } = req.body;
+note.get('/note/:id', async (req: Request, res: Response) => {
+  const { id } = req.params;
   try {
-    await NoteModel.findById(noteId, (error: string, note: INoteSchema) => {
+    await NoteModel.findById(id, (error: string, note: INoteSchema) => {
       if (error) {
         console.log(error);
         return res.status(404).json({ message: 'note exist' });
@@ -15,7 +15,7 @@ note.get('/note', async (req: Request, res: Response) => {
 
       note.noteText = decrypt(note.noteText)
 
-      return res.status(201).json({ note });
+      return res.status(201).json(note);
     })
   } catch (error) {
     console.log(error);

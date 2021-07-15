@@ -5,14 +5,13 @@ import { Link } from 'react-router-dom';
 import {
   Wrapper,
   BtnBlock,
-  InstructionsBlock,
 } from './styles';
 // Components
 import { Typography, Button } from '@material-ui/core';
-import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
+import Instructions from 'components/Instructions';
 
 const Home: React.FC = () => {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
 
   return (
     <Wrapper>
@@ -47,54 +46,11 @@ const Home: React.FC = () => {
       <Typography
         variant="body1"
         align="center"
-        style={{ marginBottom: '40px' }}
       >
         Create note, send note link to your friend and your friend can view it.
         After viewing, the note will be deleted (or after 15 minutes after note creation).
       </Typography>
-      <Typography
-        variant="h6"
-        gutterBottom
-      >
-        How create encrypted note ?
-      </Typography>
-      <InstructionsBlock>
-        <li>
-          <CheckCircleOutlineIcon />
-          <span>
-            Click on this{' '}
-            <Link
-              to="/create"
-            >
-              link
-            </Link>
-          </span>
-        </li>
-        <li>
-          <CheckCircleOutlineIcon />
-          <span>
-            Enter text and click Create
-          </span>
-        </li>
-        <li>
-          <CheckCircleOutlineIcon />
-          <span>
-            Copy link after creating and send it to your friend
-          </span>
-        </li>
-      </InstructionsBlock>
-      <Typography
-        variant="h6"
-        gutterBottom
-      >
-        How read encrypted note ?
-      </Typography>
-      <Typography
-        variant="body1"
-        gutterBottom
-      >
-        Open received link or paste in browser address
-      </Typography>
+      <Instructions />
     </Wrapper>
   );
 };
